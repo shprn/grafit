@@ -14,6 +14,7 @@ use Grafit\PriceJournal;
 
 class PricesController extends Controller
 {
+
     public function constructor()
     {
         // актуальный прайс
