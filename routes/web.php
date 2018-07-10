@@ -14,17 +14,18 @@
 Route::get('/', 'PromoController@index')->name('promo');
 Route::post('/sendMessage', 'PromoController@sendMessage')->name('promo.sendMessage');
 
-Route::get('/productions', 'ProductionsController@index')->name('productions');
-Route::get('/productions/{id}', 'ProductionsController@show')->name('productions.show');
-
-Route::get('/invoices', 'InvoicesController@index')->name('invoices');
-Route::get('/invoices/{id}', 'InvoicesController@show')->name('invoices.show');
-
 Route::get('/constructor', 'PricesController@constructor')->name('prices');
 Route::get('/getprice_blank', 'PricesController@getPriceBlank');
 Route::get('/getprice_journal', 'PricesController@getPriceJournal');
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Closed routes
+Route::get('/home', 'HomeController@index')->name('home')->middleware("auth");
+
+Route::get('/productions', 'ProductionsController@index')->name('productions')->middleware("auth");
+Route::get('/productions/{id}', 'ProductionsController@show')->name('productions.show')->middleware("auth");
+
+Route::get('/invoices', 'InvoicesController@index')->name('invoices')->middleware("auth");
+Route::get('/invoices/{id}', 'InvoicesController@show')->name('invoices.show')->middleware("auth");
 
 Auth::routes();
 Route :: get ('/logout', 'Auth\LoginController@logout')->name('logout');
