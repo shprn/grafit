@@ -25,9 +25,6 @@ Route::get('/getprice_blank', 'PricesController@getPriceBlank');
 Route::get('/getprice_journal', 'PricesController@getPriceJournal');
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/welcome', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 Route :: get ('/logout', 'Auth\LoginController@logout')->name('logout');
