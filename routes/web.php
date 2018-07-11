@@ -15,8 +15,7 @@ Route::get('/', 'PromoController@index')->name('promo');
 Route::post('/sendMessage', 'PromoController@sendMessage')->name('promo.sendMessage');
 
 Route::get('/constructor', 'PricesController@constructor')->name('prices');
-Route::get('/getprice_blank', 'PricesController@getPriceBlank');
-Route::get('/getprice_journal', 'PricesController@getPriceJournal');
+Route::get('/getprice', 'PricesController@getPrice');
 
 // Closed routes
 Route::get('/home', 'HomeController@index')->name('home')->middleware("auth");

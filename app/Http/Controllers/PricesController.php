@@ -36,70 +36,31 @@ class PricesController extends Controller
             withDiscounts($discounts);
     }
 
-    public function getPriceBlank(){
+    public function getPrice(Request $request){
+        $prod_type = $request->input("prod_type");
 
-        $result = array();
+        if (!isset($prod_type))
+            return ['error' => 1, 'last_error_str' => 'Не определен вид продукции'];
 
-        $paper_type = request()->input('paper_type');
-        $format = request()->input('format');
-        $numering = request()->input('numering');
-        $num = request()->input('num');
-        $discount = request()->input('discount');
-
+        // definition prod_type
         try {
-            $price = new PriceForm($paper_type, $format, $numering, $num, $discount);
+            if ($prod_type == config('app.id_prod_type_form'))
+                $priceObject = new PriceForm($request->all());
+            elseif ($prod_type == config('app.id_prod_type_journal'))
+                $priceObject = new PriceJournal($request->all());
+            else
+                return ['error' => 1, 'last_error_str' => 'Непредусмотренный вид продукции'];
+
         } catch (Exception $e) {
-            $result['error'] =  1;
-            $result['last_error_str'] =  "Ошибка расчета";
-            return $result;
+            return ['error' => 1, 'last_error_str' => 'Ошибка расчета'];
         }
 
-        if($price->calculate()){
-            $result['name'] =  $price->getName();
-            $result['num'] =  $price->num;
-            $result['full_price'] =  $price->getFullPrice();
-            $result['price'] =  $price->getPrice();
-            $result['sum'] =  $price->getPrice()*$price->num;
-        } else{
-            $result['error'] =  1;
-            $result['last_error_str'] =  $price->getLastErrorStr();
-        }
+        // calculate price
+        if($priceObject->calculate())
+            return $priceObject->result();
 
-        return $result;
+        return ['error' => 1, 'last_error_str' => $priceObject->getLastErrorStr()];
     }
 
-    public function getPriceJournal(){
-        $result = array();
-
-        $paper_type = request()->input('paper_type');
-        $format = request()->input('format');
-        $num_sheets = request()->input('num_sheets');
-        $stitch = request()->input('stitch');
-        $numering = request()->input('numering');
-        $cover_type = request()->input('cover_type');
-        $num = request()->input('num');
-        $discount = request()->input('discount');
-
-        try {
-            $price = new PriceJournal($paper_type, $format, $num_sheets, $stitch, $numering, $cover_type, $num, $discount);
-        } catch (Exception $e) {
-            $result['error'] =  1;
-            $result['last_error_str'] =  "Ошибка расчета";
-            return $result;
-        }
-
-        if($price->calculate()){
-            $result['name'] =  $price->getName();
-            $result['num'] =  $price->num;
-            $result['full_price'] =  $price->getFullPrice();
-            $result['price'] =  $price->getPrice();
-            $result['sum'] =  $price->getPrice()*$price->num;
-        } else{
-            $result['error'] =  1;
-            $result['last_error_str'] =  $price->getLastErrorStr();
-        }
-
-        return $result;
-    }
 
 }

@@ -38,16 +38,16 @@ class PriceJournal extends Model
 
     private $last_error_str;
 
-    public function __construct($id_paper_type, $id_format, $num_sheets, $stitch, $numering, $id_cover_type, $num, $discount)
+    public function __construct(Array $arr)
     {
-        $this->paper_type = PaperType::find((int)$id_paper_type);
-        $this->format = Format::find((int)$id_format);
-        $this->num_sheets = (int)$num_sheets;
-        $this->stitch = (int)$stitch;
-        $this->numering = (int)$numering;
-        $this->cover_type = CoverType::find((int)$id_cover_type);
-        $this->num = (int)$num;
-        $this->discount = (int)$discount;
+        $this->paper_type = PaperType::find((int)$arr['paper_type']);
+        $this->format = Format::find((int)$arr['format']);
+        $this->num_sheets = (int)$arr['num_sheets'];
+        $this->stitch = (int)$arr['stitch'];
+        $this->numering = (int)$arr['numering'];
+        $this->cover_type = CoverType::find((int)$arr['cover_type']);
+        $this->num = (int)$arr['num'];
+        $this->discount = (int)$arr['discount'];
     }
 
     private function addPriceMaterial($caption, $price)
@@ -167,4 +167,14 @@ class PriceJournal extends Model
         return $this->last_error_str;
     }
 
+    public function result(){
+        $result = [];
+        $result['name'] =  $this->getName();
+        $result['num'] =  $this->num;
+        $result['full_price'] =  $this->getFullPrice();
+        $result['price'] =  $this->getPrice();
+        $result['sum'] =  $this->getPrice()*$this->num;
+
+        return $result;
+    }
 }

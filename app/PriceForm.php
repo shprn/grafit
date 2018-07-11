@@ -33,12 +33,12 @@ class PriceForm extends Model
 
     private $last_error_str;
 
-    public function __construct($id_paper_type, $id_format, $numering, $num, $discount){
-        $this->paper_type = PaperType::find((int)$id_paper_type);
-        $this->format = Format::find((int)$id_format);
-        $this->numering = (int)$numering;
-        $this->num = (int)$num;
-        $this->discount = (int)$discount;
+    public function __construct(Array $arr){
+        $this->paper_type = PaperType::find((int)$arr['paper_type']);
+        $this->format = Format::find((int)$arr['format']);
+        $this->numering = (int)$arr['numering'];
+        $this->num = (int)$arr['num'];
+        $this->discount = (int)$arr['discount'];
     }
 
     private function addPriceMaterial($caption, $price){
@@ -136,6 +136,18 @@ class PriceForm extends Model
 
     public function getLastErrorStr(){
         return $this->last_error_str;
+    }
+
+    public function result()
+    {
+        $result = [];
+        $result['name'] =  $this->getName();
+        $result['num'] =  $this->num;
+        $result['full_price'] =  $this->getFullPrice();
+        $result['price'] =  $this->getPrice();
+        $result['sum'] =  $this->getPrice()*$this->num;
+
+        return $result;
     }
 
 }

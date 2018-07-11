@@ -57,37 +57,20 @@ function btn_calcprice_onclick(){
     $("#calc_price").html("");
     $("#calc_sum").html("");
 
-	//бланк
-    if($('select[name="prod_type"]')[0].value == '14579') {
-
-        request_data = {
-            url: '/getprice_blank/',
-            type: 'get',
-            data: {
-                paper_type : $('#paper_type')[0].value,
-                format : $('#format_form')[0].value,
-                numering : $('#numering')[0].checked ? 1 : 0,
-                num : $('#num')[0].value,
-                discount : $('#discount')[0].value
-            },
-     };
-
-    //журнал
-    } else if($('select[name="prod_type"]')[0].value == '14580') {
-        request_data = {
-            url: '/getprice_journal/',
-            type: 'get',
-            data: {
-                paper_type : $('#paper_type')[0].value,
-                format : $('#format_journal')[0].value,
-                num_sheets : $('#num_sheets')[0].value,
-                stitch : $('#stitch')[0].checked ? 1 : 0,
-                numering : $('#numering')[0].checked ? 1 : 0,
-                cover_type : $('#cover_type')[0].value,
-                num : $('#num')[0].value,
-                discount : $('#discount')[0].value
-            },
-        };
+    request_data = {
+        url: '/getprice/',
+        type: 'get',
+        data: {
+            prod_type : $('#prod_type')[0].value,
+            paper_type : $('#paper_type')[0].value,
+            format : $('#format_journal')[0].value,
+            num_sheets : $('#num_sheets')[0].value,
+            stitch : $('#stitch')[0].checked ? 1 : 0,
+            numering : $('#numering')[0].checked ? 1 : 0,
+            cover_type : $('#cover_type')[0].value,
+            num : $('#num')[0].value,
+            discount : $('#discount')[0].value
+        },
     };
 
     if(request_data) {
