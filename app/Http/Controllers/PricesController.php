@@ -4,13 +4,8 @@ namespace Grafit\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Grafit\ProdType;
-use Grafit\PaperType;
-use Grafit\Format;
-use Grafit\CoverType;
-use Grafit\Price;
-use Grafit\PriceForm;
-use Grafit\PriceJournal;
+use Grafit\PriceDoc;
+use Grafit\Services\PriceManager;
 
 class PricesController extends Controller
 {
@@ -18,7 +13,7 @@ class PricesController extends Controller
     public function constructor()
     {
         // актуальный прайс
-        $price_doc          = Price::orderBy('date_doc', 'desc')->first();
+        $price_doc          = PriceDoc::orderBy('date_doc', 'desc')->first();
 
         $prod_types         = $price_doc->getProdTypesList();
         $paper_types        = $price_doc->getPaperTypesList();
@@ -36,31 +31,22 @@ class PricesController extends Controller
             withDiscounts($discounts);
     }
 
-    public function getPrice(Request $request){
-        $prod_type = $request->input("prod_type");
+    public function getPrice(Request $request, PriceManager $priceManager)
+    {
+        $priceManager->setParamsProduction($request->all());
+        $priceManager->CalculateProduction($request->all());
 
-        if (!isset($prod_type))
-            return ['error' => 1, 'last_error_str' => 'Не определен вид продукции'];
-
-        // definition prod_type
-        try {
-            if ($prod_type == config('app.id_prod_type_form'))
-                $priceObject = new PriceForm($request->all());
-            elseif ($prod_type == config('app.id_prod_type_journal'))
-                $priceObject = new PriceJournal($request->all());
-            else
-                return ['error' => 1, 'last_error_str' => 'Непредусмотренный вид продукции'];
-
-        } catch (Exception $e) {
-            return ['error' => 1, 'last_error_str' => 'Ошибка расчета'];
+        if ($priceManager->fail())
+            return ['error' => 1, 'last_error_str' => $priceManager->last_error];
+        else {
+            $result = [];
+            $result['name'] = $priceManager->full_name;
+            $result['num'] = $priceManager->num;
+            $result['full_price'] = $priceManager->full_price;
+            $result['price'] = $priceManager->price;
+            $result['sum'] = $result['price'] * $result['num'];
+            return $result;
         }
-
-        // calculate price
-        if($priceObject->calculate())
-            return $priceObject->result();
-
-        return ['error' => 1, 'last_error_str' => $priceObject->getLastErrorStr()];
     }
-
 
 }

@@ -178,6 +178,7 @@ return [
         // Grafit\Providers\BroadcastServiceProvider::class,
         Grafit\Providers\EventServiceProvider::class,
         Grafit\Providers\RouteServiceProvider::class,
+        Grafit\Providers\PriceServiceProvider::class,
 
     ],
 

@@ -57,13 +57,18 @@ function btn_calcprice_onclick(){
     $("#calc_price").html("");
     $("#calc_sum").html("");
 
+    if (prod_type == '14580')
+        format = $('#format_journal')[0].value
+    else
+        format = $('#format_form')[0].value
+
     request_data = {
         url: '/getprice/',
         type: 'get',
         data: {
             prod_type : $('#prod_type')[0].value,
             paper_type : $('#paper_type')[0].value,
-            format : $('#format_journal')[0].value,
+            format : format,
             num_sheets : $('#num_sheets')[0].value,
             stitch : $('#stitch')[0].checked ? 1 : 0,
             numering : $('#numering')[0].checked ? 1 : 0,

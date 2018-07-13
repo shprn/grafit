@@ -4,7 +4,7 @@ namespace Grafit;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Price extends Model
+class PriceDoc extends Model
 {
     //
 
@@ -14,7 +14,7 @@ class Price extends Model
 
     //
     // ************************************
-    public function getPriceMaterial($id_paper_type, &$error_str){
+    public function getPriceMaterial($id_paper_type, &$error_str=""){
 
         $price_str = PriceStrMaterial::
             where('id_paper_type', $id_paper_type)->
@@ -28,7 +28,7 @@ class Price extends Model
         }
     }
 
-    public function getPriceOperation($id_operation, $num, &$error_str){
+    public function getPriceOperation($id_operation, $num, &$error_str=""){
         if($num == 0)
             return 0;
 
