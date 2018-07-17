@@ -22,13 +22,14 @@ class PricesController extends Controller
         $cover_types        = $price_doc->getCoverTypesList();
         $discounts          = Auth::check() ? Auth::user()->getDiscountsList() : array('0' => 0);
 
-        return view("Constructor")->
-            withProdTypes($prod_types)->
-            withPaperTypes($paper_types)->
-            withFormatForms($format_forms)->
-            withFormatJournals($format_journals)->
-            withCoverTypes($cover_types)->
-            withDiscounts($discounts);
+        return view("Constructor")->with([
+                'prod_types'     => $prod_types,
+                'paper_types'    => $paper_types,
+                'format_forms'   => $format_forms,
+                'format_journals'=> $format_journals,
+                'cover_types'    => $cover_types,
+                'discounts'      => $discounts,
+            ]);
     }
 
     public function getPrice(Request $request, PriceManager $priceManager)

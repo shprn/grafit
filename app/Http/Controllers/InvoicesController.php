@@ -19,7 +19,7 @@ class InvoicesController extends Controller
         $search = request()->input('search');
 
         $docs = Invoice::search($search)->orderBy('date_doc', 'desc')->paginate();
-        return view("Invoices")->withDocs($docs);
+        return view("Invoices")->with(['docs' => $docs]);
     }
 
     /**
@@ -35,7 +35,10 @@ class InvoicesController extends Controller
             return redirect("/invoices");
 
         $doc_strs = InvoiceStr::where('id_doc', $id)->get();
-        return view("Invoice")->withDoc($doc)->withDocStrs($doc_strs);
+        return view("Invoice")->with([
+            'doc'      => $doc,
+            'doc_strs' => $doc_strs,
+            ]);
     }
 
 }

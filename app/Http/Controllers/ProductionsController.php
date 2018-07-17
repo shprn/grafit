@@ -24,7 +24,7 @@ class ProductionsController extends Controller
         else
             $productions = Production::orderBy('code_form', 'desc')->paginate();
 
-        return view("Productions")->withProductions($productions);
+        return view("Productions")->with(['productions' => $productions]);
     }
 
     /**
@@ -42,7 +42,12 @@ class ProductionsController extends Controller
 
         $makets = $production->makets();
         $docs_strs = InvoiceStr::join('doc_invoices', 'doc_invoices.id', '=', 'doc_invoices_tab.id_doc')->where('id_tmc', $id)->orderBy('date_doc', 'desc')->paginate(10);
-        return view("Production")->withProduction($production)->withMakets($makets)->withDocsStrs($docs_strs);
+        return view("Production")->with([
+            'production' => $production,
+            'makets' => $makets,
+            'docs_strs' => $docs_strs,
+        ]);
+
     }
 
 }
