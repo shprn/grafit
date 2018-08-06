@@ -15,8 +15,8 @@
     <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css?ver=1.0') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css?ver=1.0') }}" rel="stylesheet">
 
 </head>
 
@@ -90,8 +90,8 @@
 </div>
 
 <!-- Scripts -->
-<script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('js/script.js') }}"></script>
+<script src="{{ asset('js/app.js?ver=1.0') }}"></script>
+<script src="{{ asset('js/script.js?ver=1.0') }}"></script>
 
 <script>
     $('#flash-overlay-modal').modal();
