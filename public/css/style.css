@@ -312,10 +312,9 @@ body {
     padding: 0;
 }
 
-.table-container .pagination{
+.table-container .pagination {
     float: right;
 }
-
 
 .table-container .pagination li > a {
     color: black;

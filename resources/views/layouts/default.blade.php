@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name') }}</title>
-    <base href="http://{{$_SERVER['HTTP_HOST']}}">
+
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="img/favicon.png" type="image/x-icon"/>
@@ -46,10 +46,8 @@
 
             <!-- Содержимое основной части -->
             <ul class="nav navbar-nav">
-                @if(Auth::check())
-                    <li><a href="/invoices">Счета</a></li>
-                    <li><a href="/productions">Продукция</a></li>
-                @endif
+                <li><a href="/invoices">Мои Счета</a></li>
+                <li><a href="/productions">Моя Продукция</a></li>
                 <li><a href="/constructor">Конструктор цен</a></li>
             </ul>
 

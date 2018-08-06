@@ -5,7 +5,7 @@
     <div class="container">
         <div class = "row">
             <div class = "col-lg-6 col-md-6 col-sm-5">
-                <h2>Ваша продукция</h2>
+                <h2>Моя продукция</h2>
             </div>
             <div class = "col-lg-6 col-md-6 col-sm-7">
                 {!! Form::open(['route' => 'productions', 'method' => 'get']) !!}

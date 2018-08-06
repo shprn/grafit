@@ -4,7 +4,7 @@
     <div class="container">
         <div class = "row">
             <div class = "col-lg-6 col-md-6 col-sm-5">
-                <h2>Ваши счета</h2>
+                <h2>Мои счета</h2>
             </div>
             <div class = "col-lg-6 col-md-6 col-sm-7">
                 <form method = "get" action = "">
@@ -31,7 +31,10 @@
                 </thead>
                 <tfoot>
                 <tr>
-                    <td colspan="5">{{ $docs->appends(array('search' => request()->input('search')))->links() }}
+                    <td colspan="5">
+                        <a href="{{ route('invoices.export') }}">Экспорт</a>
+                        {{ $docs->appends(array('search' => request()->input('search')))->links() }}
+                    </td>
                 </tr>
                 </tfoot>
                 <tbody>

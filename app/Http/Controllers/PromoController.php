@@ -4,6 +4,7 @@ namespace Grafit\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Grafit\Message;
+use Excel;
 
 class PromoController extends Controller
 {
@@ -25,7 +26,8 @@ class PromoController extends Controller
         else
             flash('Ошибка! Сообщение не отправлено!')->error()->important();
 
-        return redirect("/");
+
+        return redirect()->back();
     }
 
 }

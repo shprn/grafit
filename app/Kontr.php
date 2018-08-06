@@ -16,4 +16,6 @@ class Kontr extends Model
             where('id_kontr', $this->id)->
             orWhere('id_recipient', '$this->id')->count('id');
     }
+
+
 }

@@ -21,6 +21,11 @@ class Invoice extends Model
         static::addGlobalScope(new UserInvoiceScope);
     }
 
+    public function getDates()
+    {
+        return ['date_doc'];
+    }
+
     public function kontr(){
         return $this->belongsTo('Grafit\Kontr', 'id_kontr');
     }

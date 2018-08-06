@@ -180,9 +180,6 @@ return [
         Grafit\Providers\RouteServiceProvider::class,
         Grafit\Providers\PriceServiceProvider::class,
 
-        // Excel
-        Maatwebsite\Excel\ExcelServiceProvider::class,
-
     ],
 
     /*
@@ -234,8 +231,6 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Flash' => Laracasts\Flash\Flash::class,
-        // Excel
-        'Excel' => 'Maatwebsite\Excel\Facades\Excel',
     ],
 
 

@@ -2,9 +2,10 @@
 
 namespace Grafit\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Grafit\Invoice;
 use Grafit\InvoiceStr;
+use Grafit\Exports\InvoicesExport;
 
 class InvoicesController extends Controller
 {
@@ -17,9 +18,15 @@ class InvoicesController extends Controller
     {
         //
         $search = request()->input('search');
-
         $docs = Invoice::search($search)->orderBy('date_doc', 'desc')->paginate();
         return view("Invoices")->with(['docs' => $docs]);
+    }
+
+    public function export()
+    {
+        $export = new InvoicesExport;
+        return $export->query()->fill()->download('invoices.xlsx');
+        //return $export->view();
     }
 
     /**

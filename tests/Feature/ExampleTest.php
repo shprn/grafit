@@ -16,8 +16,11 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $response = $this->get('/');
+        $this->visit('/invoices') ;
+        $this->seePageIs("/login");
 
-        $response->assertStatus(200);
+        //$response->see("Graf It!");
+
+
     }
 }
